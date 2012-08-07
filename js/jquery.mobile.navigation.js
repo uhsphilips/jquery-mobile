@@ -373,6 +373,8 @@ define( [
 				} else if ( forward ) {
 					( opts.either || opts.isForward )( false );
 				}
+
+				console.log( "directHashChange: " + urlHistory.activeIndex + " has become active" );
 			},
 
 			//disable hashchange event listener internally to ignore one change
@@ -1107,7 +1109,7 @@ define( [
 			// However, if a dialog is already displayed at this point, and we're
 			// about to display another dialog, then we must add another hash and
 			// history entry on top so that one may navigate back to the original dialog
-			if ( active.url.indexOf( dialogHashKey ) > -1 && !$.mobile.activePage.is( ".ui-dialog" ) ) {
+			if ( active.url.indexOf( dialogHashKey ) > -1 && active.pageUrl === toPage.jqmData( "url" ) ) {
 				settings.changeHash = false;
 				alreadyThere = true;
 			}
@@ -1432,6 +1434,7 @@ define( [
 		});
 
 		$.mobile._handleHashChange = function( hash ) {
+
 			//find first page via hash
 			var to = path.stripHash( hash ),
 				//transition is false if it's the first page, undefined otherwise (and may be overridden by default)
