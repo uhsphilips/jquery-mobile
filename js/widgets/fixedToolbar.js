@@ -256,11 +256,14 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 
 			//trigger page redraw to fix incorrectly positioned fixed elements
 			$( "body" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
+			//if the padding is reset with out a timeout the reposition will not occure.
+			//this is independant of JQM the browser seems to need the time to react.
 			setTimeout( function() {
 				$( "body" ).css( "padding-bottom", paddingBottom + "px" );
 				//check if toolbar has been repositioned
 				if( self._viewportOffset() !== 0 ) {
-					//reposition toolbars manually;
+					//reposition toolbars manually this seems to only be needed in iOS6 tore position when the keyboard is open 
+					//but could serve as a general purpose fallback;
 					self._fixPosition();
 				}
 			}, 0 );
@@ -282,12 +285,12 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			var self = this,
 				viewportOffset = self._viewportOffset();
 
-			$( window ).bind( "scrollstop", function() {
+			this._on( $( window ), { scrollstop: function() {
 				//check if the header is visible and if its in the right place
 				if( viewportOffset !== 0 && self._visible ) {
 					self._triggerRedraw();
 				}
-			});
+			}});
 			
 		},
 
