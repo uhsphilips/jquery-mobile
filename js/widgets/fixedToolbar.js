@@ -167,6 +167,17 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 
 		_visible: true,
 
+		_viewportOffset: function() {
+			var $el = this.element,
+				header = $el.is( ".ui-header" ),
+				offset = $el.offset().top - $( window ).scrollTop();
+			if( !header ) {
+				offset = Math.round(offset - $( window ).height() + $el.outerHeight());
+			}
+
+			return offset;
+		},
+
 		// This will set the content element's top or bottom padding equal to the toolbar's height
 		updatePagePadding: function( tbPage ) {
 			var $el = this.element,
@@ -221,7 +232,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				$el = this.element,
 				// if it's a slide transition, our new transitions need the reverse class as well to slide outward
 				outclass = "out" + ( this.options.transition === "slide" ? " reverse" : "" );
-
 			if( this._useTransition( notransition ) ) {
 				$el
 					.addClass( outclass )
@@ -240,10 +250,52 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			this[ this._visible ? "hide" : "show" ]();
 		},
 
+		_triggerRedraw: function() {
+			var self = this,
+				paddingBottom = parseFloat( $( "body" ).css( "padding-bottom" ) );
+
+			//trigger page redraw to fix incorrectly positioned fixed elements
+			$( "body" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
+			setTimeout( function() {
+				$( "body" ).css( "padding-bottom", paddingBottom + "px" );
+				//check if toolbar has been repositioned
+				if( self._viewportOffset() !== 0 ) {
+					//reposition toolbars manually;
+					self._fixPosition();
+				}
+			}, 0 );
+		},
+
+		_fixPosition: function(){
+			var self = this,
+				$el = self.element,
+				viewportOffset = self._viewportOffset(),
+				header = $el.is( ".ui-header" ),
+				currentPosition = $el.css( header ? "top" : "bottom"),
+				newPosition = currentPosition + ( header ? "-" : "" ) + viewportOffset + "px";
+
+				//move the toolbar to the new calculated position
+				$el.css( header ? "top" : "bottom", newPosition );
+		},
+
+		_bindScrollHandler: function() {
+			var self = this,
+				viewportOffset = self._viewportOffset();
+
+			$( window ).bind( "scrollstop", function() {
+				//check if the header is visible and if its in the right place
+				if( viewportOffset !== 0 && self._visible ) {
+					self._triggerRedraw();
+				}
+			});
+			
+		},
+
 		_bindToggleHandlers: function() {
 			var self = this,
 				o = self.options,
-				$el = self.element;
+				$el = self.element,
+				header = $el.is( ".ui-header" );
 
 			// tap toggle
 			$el.closest( ".ui-page" )
@@ -255,6 +307,9 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				.bind( "focusin focusout", function( e ) {
 					if ( screen.width < 500 && $( e.target ).is( o.hideDuringFocus ) && !$( e.target ).closest( ".ui-header-fixed, .ui-footer-fixed" ).length ) {
 						self[ ( e.type === "focusin" && self._visible ) ? "hide" : "show" ]();
+					}
+					if ( e.type === "focusout" && self._visible ) {
+						$el.css( header ? "top" : "bottom", 0 );
 					}
 				});
 		},
