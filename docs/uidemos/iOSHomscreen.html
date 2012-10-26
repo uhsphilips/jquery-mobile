@@ -40,7 +40,7 @@
 			background-size: 100% 100%;
 		}
 		.iconDock{
-			height:80px;
+			height:60px;
 		}
 	}
 	@media (max-width: 350px){
@@ -60,7 +60,7 @@
 			background-size: 100% 100%;
 		}
 		.iconDock{
-			height:80px;
+			height:60px;
 		}
 	}
 		.homescreen, .iconDock{
@@ -169,7 +169,7 @@
 			$('.icon-wrap').on('vmouseup',function(){
 				clearTimeout(vmouseHold);
 			});
-			$(document).on('swipe, swipeleft, swiperight',function(){
+			$(window).on('swipe, swipeleft, swiperight',function(){
 				clearTimeout(vmouseHold);
 			});
 			$(window).on('swipeleft',function(){
