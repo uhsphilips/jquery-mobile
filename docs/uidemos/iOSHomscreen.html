@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>jQuery Mobile Docs - Ordered Lists</title> 
+	<link rel="stylesheet"  href="../../css/themes/default/jquery.mobile.css" />  
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+	<script src="../../js/jquery.js"></script>
+	<script src="../../docs/_assets/js/jqm-docs.js"></script>
+	<script src="../../js/"></script>
+	<Script src="jquery-ui-1.9.0.custom.js"></script>
+	<style type="text/css">
+	
+	@media screen and (orientation: portrait){
+		li.icon-wrap{
+			width:25%;
+			text-align:center;
+			display:block;
+			float:left;
+			vertical-align:top;
+		}
+	}
+	@media screen and (orientation: landscape){
+		li.icon-wrap{
+			width:20%;
+			text-align:center;
+			display:block;
+			float:left;
+			vertical-align:top;
+		}
+	}
+	
+		li.icon-wrap{
+			width:20%;
+			text-align:center;
+			display:block;
+			float:left;
+			vertical-align:top;
+		}
+		div.icon{
+			width:70px;
+			left:50%;
+			margin-left:-35px;
+			height:70px;
+			border-radius:14px;
+			background-size: 100% 100%;
+		}
+		.homescreen, .iconDock{
+			display:block;
+			width:100%;
+			
+		}
+		a.editHomescreen.ui-btn{
+			display:none;
+		}
+		.iconDock{
+			height:160px;
+		}
+		.content-primary ul{
+			display:block;
+			
+		}
+		ul li.icon-wrap{
+			border-bottom:none;
+		}
+		.twitter{
+			background-image:url(http://www.digitalcupcake.net/wp-content/uploads/2011/12/twitter_icon.png);
+		}
+		.facebook{
+			background-image:url(http://www.technobuffalo.com/wp-content/uploads/2011/12/facebook-200x200.png);
+		}
+		.settings{
+			background-image:url(http://projectpixl.com/files/2011/12/settings.png);
+		}
+		.maps{
+			background-image:url(http://www.gearsoftech.com/wordpress/wp-content/uploads/2012/09/ios-6-maps-icon.jpg);
+		}
+		.appStore{
+			background-image:url(http://blog.karachicorner.com/blog-images/12/app-store-icon-large-12.jpg);
+		}
+		.podcasts{
+			background-image:url(http://www.screencastsonline.com/public_images/01-new/SCOI0065-summary-icon-100x100.png);
+		}
+		.pintrist{
+			background-image:url(http://www.bestappsite.com/wp-content/uploads/ios-app/429047995/mzl.nnrdwlxg.png);
+		}
+		.messages{
+			background-image:url(http://www.ijunkey.com/wordpress/wp-content/uploads/2012/08/Messages-icon-iPhone.png);
+		}
+		.contacts{
+			background-image:url(http://9to5mac.files.wordpress.com/2012/02/ios-5-contacts-icon-medium.png?w=704);
+		}
+
+		@-webkit-keyframes shake {
+			0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+			10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+			20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+			30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+			40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+			50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+			60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+			70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+			80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+			90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+			100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+		}
+		.shake{
+			-webkit-animation-name: shake;
+			-webkit-animation-duration: 0.8s;
+			-webkit-transform-origin:50% 50%;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-timing-function: linear;
+		}
+		.ui-sortable-helper{
+			z-index:99999 !important;
+		}
+		div.ui-footer{
+			overflow:visible !important;
+		}
+	</style>
+	<script>
+		$(function(){
+			var time = setTimeout(function(){
+				$('.clock').text(getTime());
+			},1000);
+			$('.homescreen').height($(window).height()-$('.ui-header').outerHeight(true)-$('.ui-footer').outerHeight(true))
+			function getTime(){
+				var currentTime = new Date ( );
+				var currentHours = currentTime.getHours ( );
+				var currentMinutes = currentTime.getMinutes ( );
+				currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+				var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+				currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+				currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+				var currentTimeString = currentHours + ":" + currentMinutes + " " + timeOfDay;
+				return currentTimeString;
+			}
+			var vmouseHold;
+			$('.icon-wrap').on('vmousedown',function(){
+				vmouseHold = setTimeout(function(){
+					$('.icon-wrap').addClass('shake');
+					$('.homescreen, .iconDock').sortable({
+						helper:"clone",
+						connectWith:".connectedSortable"
+					}).disableSelection();
+					$('.editHomescreen').show();
+				},1000);
+			});
+			$('.editHomescreen').click(function(){
+				$('.homescreen, .iconDock').sortable('destroy');
+				$('.icon-wrap').removeClass('shake');
+				$('.editHomescreen').hide();
+			});
+			$('.icon-wrap').on('vmouseup',function(){
+				clearTimeout(vmouseHold);
+			});
+			$(window).on('swipeleft',function(){
+				$.mobile.changePage($('.ui-page-active').next('[data-role="page"]'),{transition:"slide"});
+			});
+			$(window).on('swiperight',function(){
+				$.mobile.changePage($('.ui-page-active').prev('[data-role="page"]'),{transition:"slide",reverse:true});
+			});
+			
+		});
+	</script>
+</head> 
+<body> 
+
+	<div data-role="page" id="page2" class="type-interior">
+
+		<div data-role="header" data-theme="a" data-id="header" data-position="fixed" data-tap-toggle="false" data-persist="true">
+			<h1 class="clock"></h1>
+			<a href="../../" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+			<a class="editHomescreen" data-theme="c">Done</a>
+		</div><!-- /header -->
+
+	<div data-role="content">	
+			<ul class="connectedSortable homescreen">
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b twitter"></div>
+					<div class="icon-title">Twitter</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b facebook"></div>
+					<div class="icon-title">Facebook</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b settings"></div>
+					<div class="icon-title">Settings</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b appStore"></div>
+					<div class="icon-title">App Store</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b maps"></div>
+					<div class="icon-title">Maps</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b podcasts"></div>
+					<div class="icon-title">Podcasts</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b pintrist"></div>
+					<div class="icon-title">Pintrist</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b messages"></div>
+					<div class="icon-title">Messages</div>
+				</li>
+				
+			</ul>	
+		</div><!-- /content -->
+
+		<div data-role="footer" class="footer-docs" data-theme="c" data-id="footer" data-persist="true" data-tap-toggle="false" data-position="fixed">
+			<ul class="connectedSortable iconDock">
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b contacts"></div>
+					<div class="icon-title">Search</div>
+				</li>
+			</ul>	
+		</div>
+
+		</div><!-- /page -->
+<div data-role="page" id="page2" class="type-interior">
+
+	<div data-role="header" data-theme="a" data-position="fixed" data-id="header" data-tap-toggle="false" data-persist="true">
+		<h1 class="clock"></h1>
+		<a href="../../" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+		<a class="editHomescreen" data-theme="e">Done</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+			<ul class="connectedSortable homescreen">
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b twitter"></div>
+					<div class="icon-title">Twitter</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b facebook"></div>
+					<div class="icon-title">Facebook</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b settings"></div>
+					<div class="icon-title">Settings</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b appStore"></div>
+					<div class="icon-title">App Store</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b maps"></div>
+					<div class="icon-title">Maps</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b podcasts"></div>
+					<div class="icon-title">Podcasts</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b pintrist"></div>
+					<div class="icon-title">Pintrist</div>
+				</li>
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b messages"></div>
+					<div class="icon-title">Messages</div>
+				</li>
+				
+			</ul>	
+		</div><!-- /content -->
+
+		<div data-role="footer" class="footer-docs" data-theme="c" data-tap-toggle="false" data-id="footer" data-position="fixed" data-persist="true">
+			<ul class="connectedSortable iconDock">
+				<li class="icon-wrap">
+					<div class="icon ui-shadow ui-btn ui-btn-up-b contacts"></div>
+					<div class="icon-title">Search</div>
+				</li>
+			</ul>	
+		</div>
+
+		</div><!-- /page -->
+
+		</body>
+		</html>
