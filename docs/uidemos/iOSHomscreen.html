@@ -38,7 +38,7 @@
 			background-size: 100% 100%;
 		}
 	}
-	@media (max-width: : 320px){
+	@media (max-width: 350px){
 		li.icon-wrap{
 			width:25%;
 			text-align:center;
@@ -165,10 +165,14 @@
 				clearTimeout(vmouseHold);
 			});
 			$(window).on('swipeleft',function(){
-				$.mobile.changePage($('.ui-page-active').next('[data-role="page"]'),{transition:"slide"});
+				if(typeof $('.ui-page-active').next('[data-role="page"]') !== "undefined"){
+					$.mobile.changePage($('.ui-page-active').next('[data-role="page"]'),{transition:"slide"});
+				}
 			});
 			$(window).on('swiperight',function(){
-				$.mobile.changePage($('.ui-page-active').prev('[data-role="page"]'),{transition:"slide",reverse:true});
+				if(typeof $('.ui-page-active').next('[data-role="page"]') !== "undefined"){
+					$.mobile.changePage($('.ui-page-active').prev('[data-role="page"]'),{transition:"slide",reverse:true});
+				}
 			});
 			
 		});
