@@ -34,7 +34,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					self._bindTransitionFooterWorkaround();
 				} else if( os === "android" && wkversion && wkversion < 534 ){
 					//Android 2.3 run all Android 2.3 workaround
-					//self._bindScrollWorkaround();
+					self._bindScrollWorkaround();
 				} else {
 					return
 				}
@@ -56,12 +56,12 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				var self = this,
 				viewportOffset = self._viewportOffset();
 				//bind to scrollstop and check if the toolbars are correctly positioned
-				this._on( $( window ), { scrollstop: function() {
+				/*this._on( $( window ), { scrollstop: function() {
 					//check if the header is visible and if its in the right place
 					if( viewportOffset !== 0 && self._visible) {
 						self._triggerRedraw();
 					}
-				}});
+				}});*/
 			},
 			
 			//this addresses issue #4259 Fixed toolbars change position when navigating between tabs.
