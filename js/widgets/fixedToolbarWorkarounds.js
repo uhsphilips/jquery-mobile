@@ -31,10 +31,9 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					self._bindTransitionFooterWorkaround();					
 				} else if ( os === "ios" && wkversion && wkversion < 537 ) {
 					//iOS 6 run workarounds for iOS 6
-
+					self._bindTransitionFooterWorkaround();
 				} else if( os === "android" && wkversion && wkversion < 534 ){
 					//Android 2.3 run all Android 2.3 workaround
-					alert('android');
 					self._bindScrollWorkaround();
 				} else {
 					return
@@ -59,7 +58,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				//bind to scrollstop and check if the toolbars are correctly positioned
 				this._on( $( window ), { scrollstop: function() {
 					//check if the header is visible and if its in the right place
-					if( viewportOffset !== 0 && self._visible && self.ios6 === true) {
+					if( viewportOffset !== 0 && self._visible) {
 						self._triggerRedraw();
 					}
 				}});
