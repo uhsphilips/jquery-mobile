@@ -24,9 +24,8 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				}
 				if( os === "ios" && wkversion && wkversion > 534 && wkversion < 536 ){
 					//iOS 5 run all workarounds for iOS 5
-					self._bindScrollWorkaround();
-					self._bindTransitionFooterWorkaround();
-					console.log('ios5');
+					alert('ios5');
+					
 				} else if( os === "android" && wkversion && wkversion < 534 ){
 					//Android 2.3 run all Android 2.3 workaround
 					self._bindScrollWorkaround();
