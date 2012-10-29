@@ -19,7 +19,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				alert('Workarounds');
 				if( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ){
 					os = "ios";
-					alert('ios');
+					alert('ios webkit '+ wkversion);
 				} else if( ua.indexOf( "Android" ) > -1 ){
 					os = "android";
 				}
