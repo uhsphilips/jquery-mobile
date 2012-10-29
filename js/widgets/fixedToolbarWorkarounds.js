@@ -26,16 +26,20 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					return
 				}
 				//check os version if it dosent match one with workarounds return
-				if( os === "ios" && wkversion && wkversion > 533 && wkversion < 536 ){
+				if( os === "ios" && wkversion && wkversion > 533 && wkversion < 536 ) {
 					//iOS 5 run all workarounds for iOS 5
 					self._bindScrollWorkaround();
 					self._bindTransitionFooterWorkaround();					
 				} else if ( os === "ios" && wkversion && wkversion < 537 ) {
 					//iOS 6 run workarounds for iOS 6
 					self._bindTransitionFooterWorkaround();
-				} else if( os === "android" && wkversion && wkversion < 534 ){
+				} else if( os === "android" && wkversion && wkversion < 534 ) {
 					//Android 2.3 run all Android 2.3 workaround
 					self._bindScrollWorkaround();
+					//workaround only for persistant toolbars
+					if( self.options.trackPersistentToolbars ) {
+						self._bindPersistantFooterWorkaround();
+					}
 				} else {
 					return
 				}
@@ -51,6 +55,17 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				}
 
 				return offset;
+			},
+
+			//this addresses issue #4250 - Persistent footer instability in v1.1 with long select lists in Android 2.3.3
+			//sometimes on pageshow the footer isnt drawn correctly and is out of position redraw to update
+			_bindPersistantFooterWorkaround: function () {
+				var self = this,
+				$el = self.element;
+				//add class when transition starts
+				self._on( $el.closest( ".ui-page" ), {
+					pageshow: self._triggerRedraw
+				});
 			},
 			//bind events for _triggerRedraw() function 
 			_bindScrollWorkaround: function() {
