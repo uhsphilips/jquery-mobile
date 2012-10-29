@@ -8,29 +8,36 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				this._workarounds();
 			},
 
+			//check the browser and version and run needed workarounds
 			_workarounds: function() {
-				var w = window,
-				ua = navigator.userAgent,
+				var ua = navigator.userAgent,
 				platform = navigator.platform,
 				// Rendering engine is Webkit, and capture major version
 				wkmatch = ua.match( /AppleWebKit\/([0-9]+)/ ),
 				wkversion = !!wkmatch && wkmatch[ 1 ],
 				os = null;
-				alert('Workarounds');
+				//set the os we are working in if it dosent match one with workarounds return
 				if( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ){
 					os = "ios";
-					alert('ios webkit '+ wkversion);
 				} else if( ua.indexOf( "Android" ) > -1 ){
 					os = "android";
+				} else {
+					return
 				}
-				if( os === "ios" && wkversion && wkversion > 534 && wkversion < 536 ){
+				//check os version if it dosent match one with workarounds return
+				if( os === "ios" && wkversion && wkversion > 533 && wkversion < 536 ){
 					//iOS 5 run all workarounds for iOS 5
-					alert('ios5');
-					
+					self._bindScrollWorkaround();
+					self._bindTransitionFooterWorkaround();					
+				} else if ( os === "ios" && wkversion && wkversion < 537 ) {
+					//iOS 6 run workarounds for iOS 6
+
 				} else if( os === "android" && wkversion && wkversion < 534 ){
 					//Android 2.3 run all Android 2.3 workaround
+					alert('android');
 					self._bindScrollWorkaround();
-					console.log('android 2.x');
+				} else {
+					return
 				}
 			},
 
@@ -45,11 +52,11 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 
 				return offset;
 			},
-
+			//bind events for _triggerRedraw() function 
 			_bindScrollWorkaround: function() {
 				var self = this,
 				viewportOffset = self._viewportOffset();
-
+				//bind to scrollstop and check if the toolbars are correctly positioned
 				this._on( $( window ), { scrollstop: function() {
 					//check if the header is visible and if its in the right place
 					if( viewportOffset !== 0 && self._visible && self.ios6 === true) {
@@ -57,16 +64,20 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					}
 				}});
 			},
-
+			
+			//this addresses issue #4259 Fixed toolbars change position when navigating between tabs.
+			//this is needed on both iOS 5 and iOS 6
+			//when the transition starts make the page position:fixed; bottom:0;
+			//this ensurace the footer stays at the bottom.
 			_bindTransitionFooterWorkaround: function() {
 				var self = this,
-				o = self.options,
 				$el = self.element;
-
+				//add class when transition starts
 				self._on( $el.closest( ".ui-page" ), {
 					"webkitAnimationStart animationstart updatelayout": function() {
 						$el.closest( ".ui-page" ).addClass( "ui-ios-footer-fix" );
 					},
+					//remove the class when the transition completes 
 					pageshow: function() {
 						$el.closest( ".ui-page" ).removeClass( "ui-ios-footer-fix" );
 					}
@@ -74,7 +85,11 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				});
 
 			},
-
+			//this addresses issues #4337 Fixed header problem after scrolling content on iOS and Android
+			//and device bugs project issue #1 Form elements can lose click hit area in position: fixed containers.
+			//this also addresses not on fixed toolbars page in docs
+			//adding 1px of padding to the bottom then removing it causes a "redraw"
+			//which positions the toolbars correctly (they will always be visually correct) 
 			_triggerRedraw: function() {
 				var self = this,
 					paddingBottom = parseFloat( $( "body" ).css( "padding-bottom" ) );
