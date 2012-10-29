@@ -15,7 +15,8 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				// Rendering engine is Webkit, and capture major version
 				wkmatch = ua.match( /AppleWebKit\/([0-9]+)/ ),
 				wkversion = !!wkmatch && wkmatch[ 1 ],
-				os = null;
+				os = null,
+				self = this;
 				//set the os we are working in if it dosent match one with workarounds return
 				if( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ){
 					os = "ios";
@@ -56,12 +57,12 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				var self = this,
 				viewportOffset = self._viewportOffset();
 				//bind to scrollstop and check if the toolbars are correctly positioned
-				/*this._on( $( window ), { scrollstop: function() {
+				this._on( $( window ), { scrollstop: function() {
 					//check if the header is visible and if its in the right place
 					if( viewportOffset !== 0 && self._visible) {
 						self._triggerRedraw();
 					}
-				}});*/
+				}});
 			},
 			
 			//this addresses issue #4259 Fixed toolbars change position when navigating between tabs.
