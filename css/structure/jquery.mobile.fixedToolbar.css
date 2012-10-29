@@ -49,3 +49,7 @@
 .ui-footer-fixed .ui-btn { 
 	z-index: 10;
 }
+.ui-ios-footer-fix{
+	position:fixed;
+	bottom:0;
+}

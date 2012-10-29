@@ -63,7 +63,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 		},
 
 		_create: function() {
-
 			var self = this,
 				o = self.options,
 				$el = self.element,
@@ -253,7 +252,10 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					}
 				})
 				.bind( "focusin focusout", function( e ) {
-					if ( screen.width < 500 && $( e.target ).is( o.hideDuringFocus ) && !$( e.target ).closest( ".ui-header-fixed, .ui-footer-fixed" ).length ) {
+					//this hides the toolbars on a keyboard pop to give more screen room and prevent ios bug which 
+					//positions fixed toolbars in the middle of the screen on pop if the input is near the top or
+					//bottom of the screen
+					if ( screen.width < 1025 && $( e.target ).is( o.hideDuringFocus ) && !$( e.target ).closest( ".ui-header-fixed, .ui-footer-fixed" ).length ) {
 						self[ ( e.type === "focusin" && self._visible ) ? "hide" : "show" ]();
 					}
 				});
