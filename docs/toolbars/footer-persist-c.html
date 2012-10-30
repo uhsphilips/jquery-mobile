@@ -124,14 +124,14 @@
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="foo1" data-position="fixed">
-			
-				
-					<span href="footer-persist-a.html" data-prefetch="true" data-transition="slideup">Info</span>
-					<span href="footer-persist-b.html" onclick = "alert('click');" data-prefetch="true">Friends</span>
-					<span href="footer-persist-c.html" data-prefetch="true">Albums</span>
-					<span href="footer-persist-d.html" data-prefetch="true">Emails</span>
-				
-			<!-- /navbar -->
+			<div data-role="navbar">
+				<ul>
+					<li><a href="footer-persist-a.html" data-prefetch="true" data-transition="slideup">Info</a></li>
+					<li><a href="footer-persist-a.html" onclick="alert('click');" data-prefetch="true">Friends</a></li>
+					<li><a href="footer-persist-c.html" data-prefetch="true" class="ui-btn-active ui-state-persist">Albums</a></li>
+					<li><a href="footer-persist-d.html" data-prefetch="true">Emails</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
 
 		</div><!-- /page -->
