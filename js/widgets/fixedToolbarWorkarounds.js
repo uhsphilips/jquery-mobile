@@ -37,9 +37,9 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					//Android 2.3 run all Android 2.3 workaround
 					self._bindScrollWorkaround();
 					//workaround only for persistant toolbars
-					if( self.options.trackPersistentToolbars ) {
+					
 						self._bindPersistantFooterWorkaround();
-					}
+					
 				} else {
 					return
 				}
