@@ -53,16 +53,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				return offset;
 			},
 
-			//this addresses issue #4250 - Persistent footer instability in v1.1 with long select lists in Android 2.3.3
-			//sometimes on pageshow the footer isnt drawn correctly and is out of position redraw to update
-			_bindPersistantFooterWorkaround: function () {
-				var self = this,
-				$el = self.element;
-				//add class when transition starts
-				self._on( $el.closest( ".ui-page" ), {
-					pageshow: self._triggerRedraw
-				});
-			},
 			//bind events for _triggerRedraw() function 
 			_bindScrollWorkaround: function() {
 				var self = this,
