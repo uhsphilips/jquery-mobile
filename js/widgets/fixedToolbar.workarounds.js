@@ -78,7 +78,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			//setting the li's to -webkit-transform:translate3d(0,0,0); solves this problem to avoide potential issues in other
 			//platforms we scope this with the class ui-android-2x-fix
 			_bindListThumbWorkaround: function() {
-				this.element.closest(".ui-page-active").addClass( "ui-android-2x-fixed" );
+				this.element.closest(".ui-page").addClass( "ui-android-2x-fixed" );
 			},
 			
 			//this addresses issue #4259 Fixed toolbars change position when navigating between tabs.
