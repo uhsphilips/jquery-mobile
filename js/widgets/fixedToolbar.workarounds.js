@@ -41,6 +41,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				} else if( os === "android" && wkversion && wkversion < 534 ) {
 					//Android 2.3 run all Android 2.3 workaround
 					self._bindScrollWorkaround();
+					self._bindListThumbWorkaround();
 				} else {
 					return
 				}
