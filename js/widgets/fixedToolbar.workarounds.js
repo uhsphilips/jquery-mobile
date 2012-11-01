@@ -107,14 +107,14 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			//adding 1px of padding to the bottom then removing it causes a "redraw"
 			//which positions the toolbars correctly (they will always be visually correct) 
 			_triggerRedraw: function() {
-				var paddingBottom = parseFloat( $( "body" ).css( "padding-bottom" ) );
+				var paddingBottom = parseFloat( $( ".ui-page-active" ).css( "padding-bottom" ) );
 
 				//trigger page redraw to fix incorrectly positioned fixed elements
-				$( "body" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
+				$( ".ui-page-active" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
 				//if the padding is reset with out a timeout the reposition will not occure.
 				//this is independant of JQM the browser seems to need the time to react.
 				setTimeout( function() {
-					$( "body" ).css( "padding-bottom", paddingBottom + "px" );
+					$( ".ui-page-active" ).css( "padding-bottom", paddingBottom + "px" );
 				}, 0 );
 			},
 
