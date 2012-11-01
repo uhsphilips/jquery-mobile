@@ -114,7 +114,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				//if the padding is reset with out a timeout the reposition will not occure.
 				//this is independant of JQM the browser seems to need the time to react.
 				setTimeout( function() {
-					alert();
 					$( "body" ).css( "padding-bottom", paddingBottom + "px" );
 				}, 0 );
 			},
