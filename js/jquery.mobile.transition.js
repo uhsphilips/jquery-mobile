@@ -31,15 +31,7 @@ var createHandler = function( sequential ) {
 				$.mobile.pageContainer.toggleClass( "ui-mobile-viewport-transitioning viewport-" + name );
 			},
 			scrollPage = function() {
-				// By using scrollTo instead of silentScroll, we can keep things better in order
-				// Just to be precautios, disable scrollstart listening like silentScroll would
-				$.event.special.scrollstart.enabled = false;
-
 				
-				// reenable scrollstart listening like silentScroll would
-				setTimeout( function() {
-					$.event.special.scrollstart.enabled = true;
-				}, 150 );
 			},
 			cleanFrom = function() {
 				$from
