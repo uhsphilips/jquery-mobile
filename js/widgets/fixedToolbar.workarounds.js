@@ -66,7 +66,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					var viewportOffset = self._viewportOffset();
 					//check if the header is visible and if its in the right place
 					if( viewportOffset > 2 && self._visible) {
-						alert(self._viewportOffset);
 						self._triggerRedraw();
 					}
 				}});
@@ -90,7 +89,13 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				$el = self.element;
 				//add class when transition starts
 				self._on( $el.closest( ".ui-page" ), {
-					"webkitAnimationStart animationstart updatelayout": function() {
+					webkitAnimationStart: function() {
+						$el.closest( ".ui-page" ).addClass( "ui-ios-footer-fix" );
+					},
+					animationstart: function() {
+						$el.closest( ".ui-page" ).addClass( "ui-ios-footer-fix" );
+					},
+					updatelayout: function() {
 						$el.closest( ".ui-page" ).addClass( "ui-ios-footer-fix" );
 					},
 					//remove the class when the transition completes 
