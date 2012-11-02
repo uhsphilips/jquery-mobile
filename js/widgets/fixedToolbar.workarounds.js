@@ -61,10 +61,10 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 
 			//bind events for _triggerRedraw() function 
 			_bindScrollWorkaround: function() {
-				var self = this,
-				viewportOffset = self._viewportOffset();
+				var self = this;
 				//bind to scrollstop and check if the toolbars are correctly positioned
 				this._on( $( window ), { scrollstop: function() {
+					var viewportOffset = self._viewportOffset();
 					//check if the header is visible and if its in the right place
 					if( viewportOffset !== 0 && self._visible) {
 						self._triggerRedraw();
