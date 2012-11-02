@@ -55,7 +55,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				if( !header ) {
 					offset = Math.round(offset - $( window ).height() + $el.outerHeight());
 				}
-				alert(offset);
 				return offset;
 			},
 
@@ -107,6 +106,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			//adding 1px of padding to the bottom then removing it causes a "redraw"
 			//which positions the toolbars correctly (they will always be visually correct) 
 			_triggerRedraw: function() {
+				alert();
 				var paddingBottom = parseFloat( $( ".ui-page-active" ).css( "padding-bottom" ) );
 				//trigger page redraw to fix incorrectly positioned fixed elements
 				$( ".ui-page-active" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
