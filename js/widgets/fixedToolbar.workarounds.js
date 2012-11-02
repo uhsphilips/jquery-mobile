@@ -65,7 +65,8 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				this._on( $( window ), { scrollstop: function() {
 					var viewportOffset = self._viewportOffset();
 					//check if the header is visible and if its in the right place
-					if( viewportOffset < 3 && self._visible) {
+					if( viewportOffset > 2 && self._visible) {
+						alert(self._viewportOffset);
 						self._triggerRedraw();
 					}
 				}});
@@ -106,7 +107,6 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			//adding 1px of padding to the bottom then removing it causes a "redraw"
 			//which positions the toolbars correctly (they will always be visually correct) 
 			_triggerRedraw: function() {
-				alert(this._viewportOffset());
 				var paddingBottom = parseFloat( $( ".ui-page-active" ).css( "padding-bottom" ) );
 				//trigger page redraw to fix incorrectly positioned fixed elements
 				$( ".ui-page-active" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
