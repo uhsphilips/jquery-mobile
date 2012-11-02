@@ -53,7 +53,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					header = $el.is( ".ui-header" ),
 					offset = $el.offset().top - $( window ).scrollTop();
 				if( !header ) {
-					offset = Math.round(offset - $( window ).height() + $el.outerHeight());
+					offset = Math.round(offset - $( window ).innerHeight() + $el.outerHeight());
 				}
 
 				return offset;
