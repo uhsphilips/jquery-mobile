@@ -108,7 +108,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			//which positions the toolbars correctly (they will always be visually correct) 
 			_triggerRedraw: function() {
 				var paddingBottom = parseFloat( $( ".ui-page-active" ).css( "padding-bottom" ) );
-
+				alert();
 				//trigger page redraw to fix incorrectly positioned fixed elements
 				$( ".ui-page-active" ).css( "padding-bottom", ( paddingBottom + 1 ) +"px" );
 				//if the padding is reset with out a timeout the reposition will not occure.
