@@ -53,7 +53,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 					header = $el.is( ".ui-header" ),
 					offset = $el.offset().top - $( window ).scrollTop();
 				if( !header ) {
-					offset = Math.round(offset - $( window ).height() + $el.outerHeight());
+					offset = Math.round(offset - $( window ).innerHeight() + $el.outerHeight());
 				}
 
 				return offset;
@@ -66,7 +66,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				//bind to scrollstop and check if the toolbars are correctly positioned
 				this._on( $( window ), { scrollstop: function() {
 					//check if the header is visible and if its in the right place
-					if( viewportOffset !== 0 && self._visible) {
+					if( viewportOffset > 2 && self._visible) {
 						self._triggerRedraw();
 					}
 				}});
@@ -115,6 +115,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				//this is independant of JQM the browser seems to need the time to react.
 				setTimeout( function() {
 					$( ".ui-page-active" ).css( "padding-bottom", paddingBottom + "px" );
+					alert(self._viewportOffset());
 				}, 0 );
 			},
 
