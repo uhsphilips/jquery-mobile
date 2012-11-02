@@ -65,7 +65,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				this._on( $( window ), { scrollstop: function() {
 					var viewportOffset = self._viewportOffset();
 					//check if the header is visible and if its in the right place
-					if( ( viewportOffset !== -1 || ( viewportOffset < 62 && viewportOffset > 60 ) ) && self._visible) {
+					if( ( viewportOffset !== -1 || ( viewportOffset < 63 && viewportOffset > 60 ) ) && self._visible) {
 						self._triggerRedraw();
 					}
 				}});
