@@ -51,7 +51,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 			_viewportOffset: function() {
 				var $el = this.element,
 					header = $el.is( ".ui-header" ),
-					offset = $el.offset().top - $( window ).scrollTop();
+					offset = Math.abs($el.offset().top - $( window ).scrollTop());
 				if( !header ) {
 					offset = Math.round(offset - $( window ).height() + $el.outerHeight())-60;
 				}
@@ -65,7 +65,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				this._on( $( window ), { scrollstop: function() {
 					var viewportOffset = self._viewportOffset();
 					//check if the header is visible and if its in the right place
-					if( viewportOffset !== -1 && self._visible) {
+					if( viewportOffset < 3 && self._visible) {
 						self._triggerRedraw();
 					}
 				}});
