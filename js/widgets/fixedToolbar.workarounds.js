@@ -55,7 +55,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				if( !header ) {
 					offset = Math.round(offset - $( window ).innerHeight() + $el.outerHeight());
 				}
-
+				alert(offset);
 				return offset;
 			},
 
