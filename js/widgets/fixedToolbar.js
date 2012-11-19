@@ -275,7 +275,7 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.core", "../jque
 				});
 		},
 
-		destroy: function() {
+		_destroy: function() {
 			var $el = this.element,
 				header = $el.is( ".ui-header" );
 
