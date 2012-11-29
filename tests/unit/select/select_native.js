@@ -73,6 +73,7 @@
 
 		$(document)
 			.one("vmousedown.test", function(){
+				alert();
 				ok( $.mobile.zoom.enabled === false, "zoom is disabled on vmousedown" );
 			})
 			.one("mouseup.test", function(){
