@@ -34,6 +34,7 @@ define([
 	'./widgets/table.columntoggle',
 	'./widgets/table.reflow',
 	'./jquery.mobile.zoom',
+	'./widgets/scrollLink',
 	'./jquery.mobile.zoom.iosorientationfix'
 ], function( require ) {
 	require( [ './jquery.mobile.init' ], function() {} );

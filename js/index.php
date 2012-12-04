@@ -57,6 +57,7 @@ $files = array(
 	'widgets/fixedToolbar.workarounds.js',
 	'widgets/popup.js',
 	'widgets/table.js',
+	'widgets/scrollLink.js',
 	'widgets/table.columntoggle.js',
 	'widgets/table.reflow.js',
 	'jquery.mobile.zoom.js',
