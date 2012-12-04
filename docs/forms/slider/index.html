@@ -35,13 +35,12 @@
 			</ul>
 			<div>
 				Jump To: 
-				<a href="#step-increment" data-scrolllink="true" >Step Increment</a>, 
-				<a href="#fill-highlight" data-scrolllink="true" >Fill Highlight</a>, 
-				<a href="#mini-version" data-scrolllink="true" >Mini version</a>, 
-				<a href="#field-containers" data-scrolllink="true" >Field Containers</a>, 
-				<a href="#calling-slider" data-scrolllink="true" >Calling the slider</a>, 
-				<a href="#theme-slider" data-scrolllink="true" >Theming the slider</a>, 
-				<a href="#field-containers" data-scrolllink="true" >Field Containers</a>, 
+				<a href="#step-increment" data-scrollto="true" >Step Increment</a>, 
+				<a href="#fill-highlight" data-scrollto="true" >Fill Highlight</a>, 
+				<a href="#mini-version" data-scrollto="true" >Mini version</a>, 
+				<a href="#field-containers" data-scrollto="true" >Field Containers</a>, 
+				<a href="#calling-slider" data-scrollto="true" >Calling the slider</a>, 
+				<a href="#theme-slider" data-scrollto="true" >Theming the slider</a> 
 			</div>
 			<p>To add a slider widget to your page, use a standard <code>input</code> with the <code>type="range"</code> attribute.  The input's <code>value</code> is used to configure the starting position of the handle and the value is populated in the text input. Specify <code>min</code> and <code>max</code> attribute values to set the slider's range. If you want to constrain input to specific increments, add the <code>step</code> attribute. Set the <code>value</code> attribute to define the initial value. The framework will parse these attributes to configure the slider widget. View the <a href="../../api/data-attributes.html">data- attribute reference</a> to see all the possible attributes you can add to sliders.</p>
 
@@ -58,7 +57,7 @@
 				<p>The default slider with these settings is displayed like this:</p>
 				<label for="slider-1">Input slider:</label>
 				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />
-				
+				<br/><br/><a href="top" data-scrollto="true">return to top</a>
 				<h2 id="step-increment">Step increment</h2>
 
 				<p>To force the slider to snap to a specific increment, add the <code>step</code> attribute to the input. By default, the step is 1, but in this example, the step is 50 and the maximum value is 500.</p>
@@ -72,10 +71,10 @@
 		        <label for="slider-step">Input slider:</label>
 				<input type="range" name="slider-step" id="slider-step" value="150" min="0" max="500" step="50" />
 				
-				
+				<br/><br/><a href="top" data-scrollto="true">return to top</a>
 				<h2 id="fill-highlight">Fill highlight</h2>
 
-				<p>To have a highlight fill on the track up to the slider handle position, add the <code>data-highlight="true"</code> attribute to the input. The fill uses the active state swatch. </p>
+				<p>To have a highlight fill on the track up to the slider handle position, add the <a href="options.html?scrollto=option-highlight"><code>data-highlight="true"</code></a> attribute to the input. The fill uses the active state swatch. </p>
 
 <pre><code>
 &lt;label for=&quot;slider-fill&quot;&gt;Input slider:&lt;/label&gt;
@@ -85,10 +84,10 @@
 		        <label for="slider-fill">Input slider:</label>
 				<input type="range" name="slider-fill" id="slider-fill" value="60" min="0" max="100" data-highlight="true" />
 	
-				
+				<br/><br/><a href="top" data-scrollto="true">return to top</a>
 				<h2 id="mini-version">Mini version</h2>
 
-				<p>For a more compact version that is useful in toolbars and tight spaces, add the <code>data-mini="true"</code> attribute to the element to create a <a href="../forms-all-mini.html">mini version</a>. </p>
+				<p>For a more compact version that is useful in toolbars and tight spaces, add the <a href="options.html?scrollto=option-mini"><code>data-mini="true"</code></a> attribute to the element to create a <a href="../forms-all-mini.html">mini version</a>. </p>
 
 <pre><code>
 &lt;label for=&quot;slider-mini&quot;&gt;Input slider:&lt;/label&gt;
@@ -98,7 +97,7 @@
 				<p>This will produce a slider and its corresponding input that are not as tall as the standard version. The input also has a smaller text size.</p>
 		        <label for="slider-mini">Input slider:</label>
 				<input type="range" name="slider-mini" id="slider-mini" value="25" min="0" max="100" data-highlight="true" data-mini="true" />
-
+				<br/><br/><a href="top" data-scrollto="true">return to top</a>
 				<h2 id="field-containers">Field containers</h2>
 					
 				<p>Optionally wrap the slider markup in a container with the <code>data-role="fieldcontain"</code> attribute to help visually group it in a longer form. In this example, the <code>step</code> attribute is omitted to allow any whole number value to be selected.</p>
@@ -119,7 +118,7 @@
 
 			<p>Sliders also respond to key commands. Right Arrow, Up Arrow and Page Up keys increase the value; Left Arrow, Down Arrow and Page Down keys decrease it. To move the slider to its minimum or maximum value, use the Home or End key, respectively.</p>
 
-
+		<br/><br/><a href="top" data-scrollto="true">return to top</a>
 		<h2 id="calling-slider">Calling the slider plugin</h2>
 
 <p>This plugin will auto initialize on any page that contains a text <code>input</code> with the <code>type="range"</code> attribute. However, if needed you can directly call the <code>slider</code> plugin on any selector, just like any jQuery plugin:</p>
@@ -127,9 +126,9 @@
 $('input').slider();
 </code></pre>
 
-
+		<br/><br/><a href="top" data-scrollto="true">return to top</a>
 		<h2 id="theme-slider">Theming the slider</h2>
-		<p>To set the theme swatch for the slider, add a <code>data-theme</code> attribute to the <code>input</code> which will apply the theme to both the input, handle and track. The track swatch can be set separately by adding the  <code>data-track-theme</code> attribute to apply the down state version of the selected button swatch.</p>
+		<p>To set the theme swatch for the slider, add a <a href="options.html?scrollto=option-theme"><code>data-theme</code></a> attribute to the <code>input</code> which will apply the theme to both the input, handle and track. The track swatch can be set separately by adding the  <a href="options.html?scrollto=option-track-theme"><code>data-track-theme</code></a> attribute to apply the down state version of the selected button swatch.</p>
 
 		<pre><code>
 &lt;div data-role=&quot;fieldcontain&quot;&gt;
@@ -143,6 +142,7 @@ $('input').slider();
 			<label for="slider-3">Input slider:</label>
 			<input type="range" name="slider-3" id="slider-3" value="25" min="0" max="100" data-theme="a" data-track-theme="b" />
 		</div>
+		<br/><br/><a href="top" data-scrollto="true">return to top</a>
 		</form>
 	</div><!--/content-primary -->
 
