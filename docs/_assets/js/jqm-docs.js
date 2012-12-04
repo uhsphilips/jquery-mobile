@@ -1,5 +1,27 @@
 //collapse page navs after use
 $(function(){
+	$( document ).bind('pageshow',function(){
+  	var match,
+  		pos,
+  		urlParams = {},
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+        
+     	while (match = search.exec(query)){
+       		urlParams[decode(match[1])] = decode(match[2]);
+       	}
+
+       	if(typeof urlParams.scrollTo !== "undefined"){
+
+       		pos = $("#"+urlParams.scrollTo).offset().top;
+       		console.log(pos);
+       		setTimeout(function(){
+       			$.mobile.silentScroll( pos );
+       		},100);
+       	}
+  });
 	$('body').delegate('.content-secondary .ui-collapsible-content', 'click',  function(){
 		$(this).trigger("collapse");
 	});
