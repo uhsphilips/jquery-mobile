@@ -270,7 +270,15 @@ dd h4 { margin:15px 0 0 0; }
 	text-decoration: none;
 }
 
-
+/* FAQ styles */
+.ui-bar-b.faq-question.ui-field-contain.ui-body.ui-br {
+	width: 100%;
+	padding: 10px;
+	padding-right: 20px;
+	margin-top: -15px;
+	margin-left: -15px;
+	font-size: 1.5em;
+}
 /* docs site layout */
 
 @media all and (min-width: 650px){
