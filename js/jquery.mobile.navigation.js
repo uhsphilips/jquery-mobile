@@ -684,9 +684,12 @@ define( [
 
 
 		function deeplink( hash ){
+			//make sure we are working with a real id that can be deeplinked to 
 			if(typeof hash !== "undefined" && hash.search("/") === -1 && hash !== "" && $(hash).length > 0 && !$(hash).hasClass("ui-page")){
+				//scroll to the id
 				var pos = $(hash).offset().top;
 				$.mobile.silentScroll(pos);
+				//update the hash for bookmarking
 				window.location.hash = hash;
 			}
 		}
@@ -1154,8 +1157,11 @@ define( [
 
 				//get href, if defined, otherwise default to empty hash
 				href = path.makeUrlAbsolute( $link.attr( "href" ) || "#", baseUrl );
+			//get a hash if present from the link
 			var hash = $.mobile.path.parseUrl(href).hash;
+			//make sure we are not working with nested listviews 
 			if(baseUrl !== href.replace(hash,"") && hash.search('/') === -1 && hash !== ""){
+				//remove the hash from the link to allow normal loading of the page.
 				href = href.replace(hash,"");
 			}
 			//if ajax is disabled, exit early
@@ -1220,7 +1226,7 @@ define( [
 
 				//this may need to be more specific as we use data-rel more
 				role = $link.attr( "data-" + $.mobile.ns + "rel" ) || undefined;
-
+			//added ohash to store the original hash so it can be scrolled to after the page is loaded. 
 			$.mobile.changePage( href, { transition: transition, reverse: reverse, role: role, link: $link, ohash:hash} );
 			event.preventDefault();
 		});
