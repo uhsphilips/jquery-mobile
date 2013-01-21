@@ -293,7 +293,7 @@ define( [
 			aPageBorderB = parseFloat( aPage.css( "border-bottom-width" ) );
 
 		height = ( typeof height === "number" )? height : getScreenHeight();
-		
+
 		aPage.css( "min-height", height - aPagePadT - aPagePadB - aPageBorderT - aPageBorderB );
 	};
 
@@ -682,6 +682,14 @@ define( [
 			pbcEvent = new $.Event( "pagebeforechange" ),
 			triggerData = { toPage: toPage, options: settings };
 
+
+		function deeplink( hash ){
+			if(typeof hash !== "undefined" && hash.search("/") === -1 && hash !== "" && $(hash).length > 0 && !$(hash).hasClass("ui-page")){
+				var pos = $(hash).offset().top;
+				$.mobile.silentScroll(pos);
+				window.location.hash = hash;
+			}
+		}
 		// NOTE: preserve the original target as the dataUrl value will be simplified
 		//       eg, removing ui-state, and removing query params from the hash
 		//       this is so that users who want to use query params have access to them
@@ -721,7 +729,11 @@ define( [
 		// to make sure it is loaded into the DOM. We'll listen
 		// to the promise object it returns so we know when
 		// it is done loading or if an error ocurred.
+
+		
 		if ( isToPageString ) {
+
+			deeplink( options.ohash );
 			// preserve the original target as the dataUrl value will be simplified
 			// eg, removing ui-state, and removing query params from the hash
 			// this is so that users who want to use query params have access to them
@@ -783,6 +795,7 @@ define( [
 		// It is up to the developer that turns on the allowSamePageTransitiona option
 		// to either turn off transition animations, or make sure that an appropriate
 		// animation transition is used.
+		
 		if ( fromPage && fromPage[0] === toPage[0] && !settings.allowSamePageTransition ) {
 			isPageTransitioning = false;
 			mpc.trigger( "pagechange", triggerData );
@@ -791,7 +804,7 @@ define( [
 			if ( settings.fromHashChange ) {
 				urlHistory.direct({ url: url });
 			}
-
+			deeplink( options.ohash );
 			return;
 		}
 
@@ -908,7 +921,7 @@ define( [
 
 		// If we're navigating back in the URL history, set reverse accordingly.
 		settings.reverse = settings.reverse || historyDir < 0;
-
+		deeplink( options.ohash );
 		transitionPages( toPage, fromPage, settings.transition, settings.reverse )
 			.done(function( name, reverse, $to, $from, alreadyFocused ) {
 				removeActiveLinkClass();
@@ -928,6 +941,7 @@ define( [
 
 				releasePageTransitionLock();
 				mpc.trigger( "pagechange", triggerData );
+				deeplink( options.ohash );
 			});
 	};
 
@@ -1140,7 +1154,10 @@ define( [
 
 				//get href, if defined, otherwise default to empty hash
 				href = path.makeUrlAbsolute( $link.attr( "href" ) || "#", baseUrl );
-
+			var hash = $.mobile.path.parseUrl(href).hash;
+			if(baseUrl !== href.replace(hash,"") && hash.search('/') === -1 && hash !== ""){
+				href = href.replace(hash,"");
+			}
 			//if ajax is disabled, exit early
 			if ( !$.mobile.ajaxEnabled && !path.isEmbeddedPage( href ) ) {
 				httpCleanup();
@@ -1158,6 +1175,8 @@ define( [
 			//            is called. For now we are just assuming that any url with a
 			//            hash in it is an application page reference.
 			if ( href.search( "#" ) !== -1 ) {
+				
+				
 				href = href.replace( /[^#]*#/, "" );
 				if ( !href ) {
 					//link was an empty hash meant purely
@@ -1172,7 +1191,6 @@ define( [
 					href = path.makeUrlAbsolute( "#" + href, documentUrl.hrefNoHash );
 				}
 			}
-
 				// Should we handle this link, or let the browser deal with it?
 			var useDefaultUrlHandling = $link.is( "[rel='external']" ) || $link.is( ":jqmData(ajax='false')" ) || $link.is( "[target]" ),
 
@@ -1203,7 +1221,7 @@ define( [
 				//this may need to be more specific as we use data-rel more
 				role = $link.attr( "data-" + $.mobile.ns + "rel" ) || undefined;
 
-			$.mobile.changePage( href, { transition: transition, reverse: reverse, role: role, link: $link } );
+			$.mobile.changePage( href, { transition: transition, reverse: reverse, role: role, link: $link, ohash:hash} );
 			event.preventDefault();
 		});
 
